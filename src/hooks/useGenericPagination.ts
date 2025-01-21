@@ -5,10 +5,9 @@ import { type PaginationState, createPaginationStore } from './createPaginationS
 interface UsePaginationParams {
 	onChangePagination?: (paginationState: PaginationState) => void;
 	store: ReturnType<typeof createPaginationStore>;
-	itemsPerPage?: number;
 }
 
-export function useGenericPagination({ onChangePagination, store, itemsPerPage = 10 }: UsePaginationParams) {
+export function useGenericPagination({ onChangePagination, store }: UsePaginationParams) {
 	const pagination = store();
 
 	React.useEffect(() => {
@@ -16,11 +15,6 @@ export function useGenericPagination({ onChangePagination, store, itemsPerPage =
 			onChangePagination(pagination);
 		}
 	}, [pagination, onChangePagination]);
-
-	React.useEffect(() => {
-		// Atualiza o número de itens por página
-		store.setState({ itemsPerPage: itemsPerPage });
-	}, [itemsPerPage]);
 
 	return pagination;
 }
