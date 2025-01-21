@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import ReactDOM from 'react-dom/client';
 
-import { enableMocking } from '@/libs/msw/browser';
-
 import '@/styles/globals.css';
 
 import Router from './router';
@@ -16,10 +14,8 @@ if (!container) {
 
 const root = ReactDOM.createRoot(container);
 
-enableMocking().then(() => {
-	root.render(
-		<React.StrictMode>
-			<Router />
-		</React.StrictMode>
-	);
-});
+root.render(
+	<React.StrictMode>
+		<Router />
+	</React.StrictMode>
+);
