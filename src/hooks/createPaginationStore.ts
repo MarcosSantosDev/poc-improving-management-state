@@ -15,7 +15,7 @@ export type PaginationState = {
 	nextPage: () => void;
 	previousPage: () => void;
 	resetPagination: () => void;
-}
+};
 
 // Cria o hook para lidar com paginação
 export const createPaginationStore = (localStorageKey: string) =>

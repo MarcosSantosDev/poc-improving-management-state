@@ -1,8 +1,8 @@
-import { useGenericPagination } from '@/hooks/useGenericPagination';
-import React from 'react';
+import * as React from 'react';
 
-import { usePagination02 } from '@/features/Home/hooks/usePagination02';
 import Pagination from '@/components/ui/Pagination';
+import { usePagination02 } from '@/features/Home/hooks/usePagination02';
+import { useGenericPagination } from '@/hooks/useGenericPagination';
 
 const Component02 = () => {
 	const loadItems = (skip: number, take: number) => {
@@ -24,7 +24,7 @@ const Component02 = () => {
 	}, []);
 
 	return (
-		<div className="w-full p-6 space-y-20">
+		<div className="w-full space-y-20 p-6">
 			<h1 className="text-center text-lg font-bold">Paginação 02</h1>
 
 			<Pagination
@@ -35,7 +35,7 @@ const Component02 = () => {
 				setPageSize={pagination02.setPageSize}
 			/>
 		</div>
-	)
-}
+	);
+};
 
 export default Component02;

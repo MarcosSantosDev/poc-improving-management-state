@@ -1,52 +1,68 @@
-import React from "react";
-import { SubmitHandler } from "react-hook-form";
+import * as React from 'react';
 
-import { useFilterForm } from "@/hooks/useFilterForm";
+import type { SubmitHandler } from 'react-hook-form';
+
+import { useFilterForm } from '@/hooks/useFilterForm';
 
 type FilterForm = {
 	search: string;
 	category: string;
 	priceRange: string;
-}
+};
 
 const FilterFormComponent: React.FC = () => {
 	const defaultValues: FilterForm = {
-		search: "",
-		category: "",
-		priceRange: "",
+		search: '',
+		category: '',
+		priceRange: '',
 	};
 
 	const { form, isSaved, toggleSave } = useFilterForm<FilterForm>({
 		defaultValues,
-		storageKey: "filter-form",
+		storageKey: 'filter-form',
 	});
 
 	const { register, handleSubmit, reset } = form;
 
 	const onSubmit: SubmitHandler<FilterForm> = (data) => {
-		console.log("Dados filtrados:", data);
+		// eslint-disable-next-line no-console
+		console.log('Dados filtrados:', data);
 	};
 
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="max-w-xl mx-auto p-6 bg-white rounded shadow space-y-10"
+			className="mx-auto max-w-xl space-y-10 rounded bg-white p-6 shadow"
 		>
-			<div className="w-full flex justify-between">
+			<div className="flex w-full justify-between">
 				<h2 className="text-lg text-black">Filtro</h2>
-				<div className="flex justify-end items-center gap-10">
-					<label htmlFor="isSavedFilter" className="text-black text-sm">Salvar filtro</label>
-					<input type="checkbox" name="isSavedFilter" id="isSavedFilter" onClick={toggleSave} checked={isSaved} />
+				<div className="flex items-center justify-end gap-10">
+					<label
+						htmlFor="isSavedFilter"
+						className="text-sm text-black"
+					>
+						Salvar filtro
+					</label>
+					<input
+						type="checkbox"
+						name="isSavedFilter"
+						id="isSavedFilter"
+						onClick={toggleSave}
+						checked={isSaved}
+					/>
 				</div>
 			</div>
 			<div className="flex flex-col">
-				<label htmlFor="search" className="text-sm font-medium text-gray-700">
+				<label
+					htmlFor="search"
+					className="text-sm font-medium text-gray-700"
+				>
 					Busca
 				</label>
 				<input
 					id="search"
-					{...register("search")}
-					className="mt-1 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200"
+					{...register('search')}
+					className="mt-1 rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
 					placeholder="Type to search..."
 				/>
 			</div>
@@ -59,8 +75,8 @@ const FilterFormComponent: React.FC = () => {
 				</label>
 				<select
 					id="category"
-					{...register("category")}
-					className="mt-1 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200"
+					{...register('category')}
+					className="mt-1 rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
 				>
 					<option value="">Todos</option>
 					<option value="electronics">Eletrônico</option>
@@ -76,22 +92,22 @@ const FilterFormComponent: React.FC = () => {
 				</label>
 				<input
 					id="priceRange"
-					{...register("priceRange")}
-					className="mt-1 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200"
+					{...register('priceRange')}
+					className="mt-1 rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring focus:ring-blue-200"
 					placeholder="e.g., 10-50"
 				/>
 			</div>
 			<div className="flex items-center justify-between space-x-2">
 				<button
 					type="submit"
-					className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+					className="rounded bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
 				>
 					Aplicar Filtro
 				</button>
 				<button
 					type="button"
 					onClick={() => reset()}
-					className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition"
+					className="rounded bg-gray-300 px-4 py-2 text-gray-700 transition hover:bg-gray-400"
 				>
 					Limpar filtro
 				</button>

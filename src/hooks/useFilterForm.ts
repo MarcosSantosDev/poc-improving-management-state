@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
-import { DefaultValues, FieldValues, useForm } from "react-hook-form";
+import * as React from 'react';
+
+import { DefaultValues, FieldValues, useForm } from 'react-hook-form';
 
 interface UseFilterFormProps<T> {
 	defaultValues: DefaultValues<T>;
@@ -10,11 +11,8 @@ interface UseFilterFormProps<T> {
  *
  * Salvar filtro do usuário no backend e o hook gerenciar esse filtro usando sua storageKey para buscar na lista de filtros salvos
  */
-export const useFilterForm = <T extends FieldValues>({
-	defaultValues,
-	storageKey,
-}: UseFilterFormProps<T>) => {
-	const [isSaved, setIsSaved] = useState(() => !!localStorage?.getItem(storageKey));
+export const useFilterForm = <T extends FieldValues>({ defaultValues, storageKey }: UseFilterFormProps<T>) => {
+	const [isSaved, setIsSaved] = React.useState(() => !!localStorage?.getItem(storageKey));
 	const form = useForm<T>({ defaultValues });
 
 	const { reset, watch } = form;
@@ -22,21 +20,19 @@ export const useFilterForm = <T extends FieldValues>({
 
 	const savedFilters = localStorage.getItem(storageKey);
 
-	const isFilterFormEmpty = useMemo(() => {
-		return Object.values(filters).every(
-			(value) => value === undefined || value === '' || value === null
-		);
-	}, [filters])
+	const isFilterFormEmpty = React.useMemo(() => {
+		return Object.values(filters).every((value) => value === undefined || value === '' || value === null);
+	}, [filters]);
 
 	// Carregar filtros salvos do localStorage
-	useEffect(() => {
+	React.useEffect(() => {
 		if (savedFilters) {
 			reset(JSON.parse(savedFilters));
 		}
 	}, [reset, storageKey]);
 
 	// Salvar ou remover filtros no localStorage
-	useEffect(() => {
+	React.useEffect(() => {
 		if (!isSaved && savedFilters) {
 			localStorage.removeItem(storageKey);
 		}

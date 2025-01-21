@@ -6,7 +6,7 @@ type PaginationProps = {
 	setPage: (page: number) => void;
 	pageSize: number;
 	setPageSize: (pageSize: number) => void;
-}
+};
 
 const Pagination = ({ totalPages, page, setPage, pageSize, setPageSize }: PaginationProps) => {
 	const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -22,7 +22,7 @@ const Pagination = ({ totalPages, page, setPage, pageSize, setPageSize }: Pagina
 				color="primary"
 			/>
 
-			<div className='w-[200px]'>
+			<div className="w-[200px]">
 				<label>
 					Items por pagina:
 					<select
