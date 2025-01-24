@@ -8,11 +8,7 @@ import MUITableRow from '@mui/material/TableRow';
 
 import clsx from 'clsx';
 
-type TableRowProps = {
-	children: React.ReactNode;
-} & React.ComponentPropsWithoutRef<'tr'>;
-
-type TableCellXProps = {
+type TableCellProps = {
 	children: React.ReactNode;
 	width?: number | string;
 } & MUITableCellProps;
@@ -23,7 +19,7 @@ type CellWithLargeTextProps = {
 	maxLength?: number;
 };
 
-type TableCellProps = {
+type TableCellSuperProps = {
 	children: React.ReactNode;
 	className?: string;
 	width?: number | string;
@@ -33,29 +29,18 @@ type TableCellProps = {
 
 export const TableBody = MUITableBody;
 
-export const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(({ children, ...rest }, ref) => (
-	<MUITableRow
-		hover
-		tabIndex={-1}
+export const TableRow = MUITableRow;
+
+export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(({ children, width, ...rest }, ref) => (
+	<MUITableCell
+		align="left"
+		style={{ width }}
 		ref={ref}
 		{...rest}
 	>
 		{children}
-	</MUITableRow>
+	</MUITableCell>
 ));
-
-export const TableCellX = React.forwardRef<HTMLTableCellElement, TableCellXProps>(
-	({ children, width, ...rest }, ref) => (
-		<MUITableCell
-			align="left"
-			style={{ width }}
-			ref={ref}
-			{...rest}
-		>
-			{children}
-		</MUITableCell>
-	)
-);
 
 const maxSizeOfCaracters = 70;
 
@@ -115,9 +100,9 @@ const CellWithLargeText = React.memo<CellWithLargeTextProps>(
 	}
 );
 
-export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
+export const TableCellSuper = React.forwardRef<HTMLTableCellElement, TableCellSuperProps>(
 	({ children, className, width, messageError, formatData, ...rest }, ref) => {
-		const transformChldrenValue = (childrenValue: React.ReactNode): React.ReactNode => {
+		const transformChildrenValue = (childrenValue: React.ReactNode): React.ReactNode => {
 			if (childrenValue) {
 				if (['string', 'number'].includes(typeof childrenValue)) {
 					if (typeof formatData === 'function') {
@@ -133,8 +118,8 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
 
 		const cellWithError = !!messageError;
 
-		const transformChldren = (childrenValue: React.ReactNode): React.ReactNode => {
-			const children = transformChldrenValue(childrenValue);
+		const transformChildren = (childrenValue: React.ReactNode): React.ReactNode => {
+			const children = transformChildrenValue(childrenValue);
 
 			if (typeof children === 'string') {
 				return (
@@ -154,17 +139,16 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
 				title={messageError ?? ''}
 				followCursor
 			>
-				<MUITableCell
+				<TableCell
+					width={width}
 					ref={ref}
-					style={{ width }}
-					align="left"
 					className={clsx(className, {
 						'text-red cursor-pointer bg-[#f4433626]': cellWithError,
 					})}
 					{...rest}
 				>
-					{transformChldren(children)}
-				</MUITableCell>
+					{transformChildren(children)}
+				</TableCell>
 			</Tooltip>
 		);
 	}

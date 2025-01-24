@@ -1,6 +1,6 @@
-import TablePagination from '@mui/material/TablePagination';
+import MUITablePagination from '@mui/material/TablePagination';
 
-type PagingComponentProps = {
+type TablePaginationProps = {
 	count: number;
 	page: number;
 	rowsPerPage: number;
@@ -8,14 +8,14 @@ type PagingComponentProps = {
 	onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 };
 
-export const PagingComponent = ({
+export const TablePagination = ({
 	count,
 	page,
 	rowsPerPage,
 	onPageChange,
 	onRowsPerPageChange,
-}: PagingComponentProps) => (
-	<TablePagination
+}: TablePaginationProps) => (
+	<MUITablePagination
 		component="div"
 		page={page}
 		count={count}
@@ -24,10 +24,6 @@ export const PagingComponent = ({
 		onRowsPerPageChange={onRowsPerPageChange}
 		labelRowsPerPage="Linhas por página"
 		labelDisplayedRows={({ from, to, count }) => `${from}-${to} de ${count}`}
-		nextIconButtonProps={{ 'aria-label': 'Next Page' }}
-		backIconButtonProps={{ 'aria-label': 'Previous Page' }}
-		className="min-h-52 overflow-hidden rounded-b-md"
+		className="max-h-52 overflow-hidden rounded-b-md"
 	/>
 );
-
-export default PagingComponent;

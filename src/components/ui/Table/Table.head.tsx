@@ -52,6 +52,7 @@ export const TableHead = React.forwardRef<HTMLTableSectionElement, TableHeadProp
 					sortable: !hasSorting ? false : child.props.sortable,
 				})
 			);
+
 		return (
 			<MuiTableHead
 				ref={ref}
@@ -63,7 +64,7 @@ export const TableHead = React.forwardRef<HTMLTableSectionElement, TableHeadProp
 	}
 );
 
-export const TableColumn = React.forwardRef<HTMLTableCellElement, TableColumnProps>(
+export const HeadColumn = React.forwardRef<HTMLTableCellElement, TableColumnProps>(
 	({ id, children, cellProps = {}, className = '', sortable = false, sortDir = false, onSort }, ref) => {
 		const classes = useStyles();
 		const canSort = onSort && sortable;

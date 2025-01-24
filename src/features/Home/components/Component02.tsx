@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Pagination from '@/components/ui/Pagination';
+import Table from '@/components/ui/Table';
 import { usePagination02 } from '@/features/Home/hooks/usePagination02';
 import { useGenericPagination } from '@/hooks/useGenericPagination';
 
@@ -26,14 +26,17 @@ const Component02 = () => {
 	return (
 		<div className="w-full space-y-20 p-6">
 			<h1 className="text-center text-lg font-bold">Paginação 02</h1>
-
-			<Pagination
-				totalPages={pagination02.totalPages}
-				page={pagination02.page}
-				setPage={pagination02.setPage}
-				pageSize={pagination02.pageSize}
-				setPageSize={pagination02.setPageSize}
-			/>
+			<div className="flex justify-center">
+				<Table.Pagination
+					count={pagination02.totalItems}
+					page={pagination02.pageMUITablePagination}
+					onPageChange={(_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, value: number) => {
+						pagination02.setPageMUITablePagination(value);
+					}}
+					rowsPerPage={pagination02.pageSize}
+					onRowsPerPageChange={(event) => pagination02.setPageSize(Number(event.target.value))}
+				/>
+			</div>
 		</div>
 	);
 };
