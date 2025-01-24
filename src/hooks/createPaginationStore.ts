@@ -8,14 +8,21 @@ export type PaginationState = {
 	skip: number;
 	take: number;
 	totalPages: number;
+	orderByColumn: string | null;
+	order: 'asc' | 'desc';
+	orderByAsc: boolean;
 
 	setPage: (page: number) => void;
 	setPageSize: (pageSize: number) => void;
 	setTotalItems: (totalItems: number) => void;
 	nextPage: () => void;
 	previousPage: () => void;
+	setOrderBy: (column: string) => void;
+	toggleOrder: (orderByColumn: string) => void;
 	resetPagination: () => void;
 };
+
+export type CreatePaginationStore = typeof createPaginationStore;
 
 // Cria o hook para lidar com paginação
 export const createPaginationStore = (localStorageKey: string) =>
@@ -29,6 +36,9 @@ export const createPaginationStore = (localStorageKey: string) =>
 				skip: 0,
 				take: 10,
 				totalPages: 1,
+				orderByColumn: 'updatedAt',
+				order: 'asc',
+				orderByAsc: false,
 
 				// Ações
 				setPage: (page) => {
@@ -72,6 +82,16 @@ export const createPaginationStore = (localStorageKey: string) =>
 						take: pageSize,
 					});
 				},
+				setOrderBy: (column) => set({ orderByColumn: column }),
+				toggleOrder: (orderByColumn) =>
+					set((state) => {
+						const order = state.order === 'asc' ? 'desc' : 'asc';
+						return {
+							orderByColumn,
+							order,
+							orderByAsc: order === 'asc',
+						};
+					}),
 				resetPagination: () =>
 					set({
 						page: 1,
@@ -79,6 +99,9 @@ export const createPaginationStore = (localStorageKey: string) =>
 						skip: 0,
 						take: 10,
 						totalPages: Math.ceil(get().totalItems / 10),
+						orderByColumn: 'updatedAt',
+						order: 'asc',
+						orderByAsc: false,
 					}),
 			}),
 			{
@@ -92,6 +115,8 @@ export const createPaginationStore = (localStorageKey: string) =>
 					skip: state.skip,
 					take: state.take,
 					totalPages: state.totalPages,
+					orderByColumn: state.orderByColumn,
+					order: state.order,
 				}),
 			}
 		)
