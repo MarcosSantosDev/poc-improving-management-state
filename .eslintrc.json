@@ -32,6 +32,7 @@
 		}
 	},
 	"rules": {
+		"react/display-name": 0,
 		"prettier/prettier": "error",
 		"no-console": "error",
 		"no-underscore-dangle": 0,
