@@ -8,6 +8,7 @@ import routePaths from './routePaths';
 
 const Home = React.lazy(() => import('@/pages/home'));
 const Components = React.lazy(() => import('@/pages/components'));
+const Forms = React.lazy(() => import('@/pages/forms'));
 
 export const routes: RouteObject[] = [
 	{
@@ -24,6 +25,11 @@ export const routes: RouteObject[] = [
 				id: 'COMPONENTS',
 				path: routePaths.COMPONENTS,
 				element: <Components />,
+			},
+			{
+				id: 'FORMS',
+				path: routePaths.FORMS,
+				element: <Forms />,
 			},
 		],
 	},
