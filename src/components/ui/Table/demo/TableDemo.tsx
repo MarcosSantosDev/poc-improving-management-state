@@ -15,7 +15,7 @@ const TableDemo = () => {
 	);
 
 	return (
-		<div>
+		<div className="p-10 shadow">
 			<Table minWidth="700px">
 				<Table.Head {...sorting}>
 					<Table.HeadColumn

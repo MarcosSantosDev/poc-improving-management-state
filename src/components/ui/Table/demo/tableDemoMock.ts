@@ -14,7 +14,7 @@ export const usersMocked: UsersMockedData[] = [
 		lastName: 'Mynott',
 		salary: 1000,
 		department: 'Sales',
-		jobTitle: 'afsdafsdfasdfasidjfsidafosafsadnfjsfdlfjladf sdfisdaljkfnflsdflasfjksdakjfsak Civil Engineer',
+		jobTitle: 'Civil Engineer',
 	},
 	{
 		id: 2,
@@ -22,7 +22,7 @@ export const usersMocked: UsersMockedData[] = [
 		lastName: 'Arlett',
 		salary: 1000,
 		department: 'Human Resources',
-		jobTitle: 'afsdafsdfasdfasidjfsidafosafsadnfjsfdlfjladf sdfisdaljkfnflsdflasfjksdakjfsak Accounting Assistant II',
+		jobTitle: 'Accounting Assistant II',
 	},
 	{
 		id: 3,
