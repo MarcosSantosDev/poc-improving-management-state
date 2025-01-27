@@ -4,8 +4,14 @@ export const FormUncontrolled = () => {
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const formData = new FormData(event.target as HTMLFormElement);
+
+		const initialForm = {
+			country: '',
+		};
+
+		const form = Object.fromEntries(Object.entries(initialForm).map(([key]) => [key, formData.get(key)]));
 		// eslint-disable-next-line no-console
-		console.log('Selected Value:', formData.get('country'));
+		console.log(form);
 	};
 
 	return (

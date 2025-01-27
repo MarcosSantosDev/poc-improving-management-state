@@ -1,10 +1,10 @@
-import { usePagination01 } from '@/features/Home/hooks/usePagination01';
-import { usePagination02 } from '@/features/Home/hooks/usePagination02';
+import { pagination01StoreKey, usePagination01 } from '@/features/Home/hooks/usePagination01';
+import { pagination02StoreKey, usePagination02 } from '@/features/Home/hooks/usePagination02';
 import { useGenericPagination } from '@/hooks/useGenericPagination';
 
 const PresentationArea = () => {
-	const pagination01 = useGenericPagination({ store: usePagination01 });
-	const pagination02 = useGenericPagination({ store: usePagination02 });
+	const pagination01 = useGenericPagination({ storeKey: pagination01StoreKey, storeHook: usePagination01 });
+	const pagination02 = useGenericPagination({ storeKey: pagination02StoreKey, storeHook: usePagination02 });
 
 	return (
 		<div className="text-center">

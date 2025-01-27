@@ -13,7 +13,7 @@ type UsePaginationParams = {
 const genericPaginationManagementStoreKey = 'genericPaginationManagement';
 
 export function useGenericPagination({ onChangePagination, storeKey, storeHook }: UsePaginationParams) {
-	if (storeKey) {
+	if (!storeKey) {
 		throw new Error('The "storeKey" variable is required in the parameters of the "useGenericPagination" hook');
 	}
 
