@@ -21,7 +21,7 @@ type SelectProps<T extends FieldValues> = BaseSelectProps & {
 	defaultValue?: PathValue<T, Path<T>>;
 };
 
-export const ControlledSelect = <T extends FieldValues>({
+const ControlledSelect = <T extends FieldValues>({
 	error,
 	helperText,
 	control,
@@ -68,7 +68,7 @@ export const ControlledSelect = <T extends FieldValues>({
 	);
 };
 
-export const UncontrolledSelect = ({ error, helperText, name, label, options, defaultValue = '' }: BaseSelectProps) => {
+const UncontrolledSelect = ({ error, helperText, name, label, options, defaultValue = '' }: BaseSelectProps) => {
 	const selectId = useId();
 
 	return (

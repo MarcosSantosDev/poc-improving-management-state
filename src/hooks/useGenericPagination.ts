@@ -6,12 +6,19 @@ type UsePaginationParams = {
 	onChangePagination?: (
 		paginationState: Pick<PaginationState, 'skip' | 'take' | 'orderByColumn' | 'orderByAsc'>
 	) => void;
-	store: ReturnType<CreatePaginationStore>;
+	storeKey: string;
+	storeHook: ReturnType<CreatePaginationStore>;
 };
 
-export function useGenericPagination({ onChangePagination, store }: UsePaginationParams) {
+const genericPaginationManagementStoreKey = 'genericPaginationManagement';
+
+export function useGenericPagination({ onChangePagination, storeKey, storeHook }: UsePaginationParams) {
+	if (storeKey) {
+		throw new Error('The "storeKey" variable is required in the parameters of the "useGenericPagination" hook');
+	}
+
 	const paginationRef = React.useRef(0);
-	const pagination = store();
+	const pagination = storeHook();
 
 	React.useEffect(() => {
 		const isFirstRender = paginationRef.current === 0;
@@ -26,6 +33,18 @@ export function useGenericPagination({ onChangePagination, store }: UsePaginatio
 		paginationRef.current = 1;
 	}, [onChangePagination, pagination.skip, pagination.take, pagination.orderByColumn, pagination.orderByAsc]);
 
+	React.useEffect(() => {
+		const paginationKeysString = localStorage.getItem(genericPaginationManagementStoreKey);
+		if (paginationKeysString) {
+			const paginationKeys = JSON.parse(paginationKeysString) as string[];
+			const storeKeyIsInStorage = paginationKeys.some((key) => key === storeKey);
+
+			if (!storeKeyIsInStorage) {
+				paginationKeys.push(storeKey);
+			}
+		}
+	}, [storeKey]);
+
 	return {
 		...pagination,
 		/**
@@ -39,4 +58,19 @@ export function useGenericPagination({ onChangePagination, store }: UsePaginatio
 		 */
 		setPageMUITablePagination: (page: number) => pagination.setPage(page + 1),
 	};
+}
+
+export function removeAllGenericPagination() {
+	const paginationKeysString = localStorage.getItem(genericPaginationManagementStoreKey);
+	if (paginationKeysString) {
+		const paginationKeys = JSON.parse(paginationKeysString) as string[];
+
+		paginationKeys.forEach((paginationKey) => {
+			localStorage.removeItem(paginationKey);
+		});
+	}
+}
+
+export function removeGenericPaginationManagement() {
+	localStorage.removeItem(genericPaginationManagementStoreKey);
 }

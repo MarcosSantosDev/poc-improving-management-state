@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Table from '@/components/ui/Table';
-import { usePagination02 } from '@/features/Home/hooks/usePagination02';
+import { pagination02StoreKey, usePagination02 } from '@/features/Home/hooks/usePagination02';
 import { useGenericPagination } from '@/hooks/useGenericPagination';
 
 const Component02 = () => {
@@ -13,7 +13,8 @@ const Component02 = () => {
 	};
 
 	const pagination02 = useGenericPagination({
-		store: usePagination02,
+		storeKey: pagination02StoreKey,
+		storeHook: usePagination02,
 		onChangePagination: (paginationState) => {
 			loadItems(paginationState.skip, paginationState.take);
 		},
