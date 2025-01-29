@@ -5,8 +5,6 @@ import {
 	TextField,
 	FormControl,
 	FormHelperText,
-	type UseAutocompleteProps,
-	type AutocompleteProps,
 	CircularProgress,
 } from '@mui/material';
 
@@ -17,153 +15,114 @@ export type Option = {
 	value: string | number;
 };
 
-type ControlledProps<T extends FieldValues> = {
+type BaseProps = {
+	/**
+	 * Only for UncontrolledAutocomplete
+	 */
+	defaultValue?: Option | null;
+	name?: string;
+	label: string;
+	options: Option[];
+	helperText?: string;
+	error?: boolean;
+	loading?: boolean;
+	open?: boolean;
+	onOpen?: () => void;
+	onClose?: () => void;
+	onInputChange?: (event: React.SyntheticEvent, value: string) => void;
+};
+
+type ControlledProps<T extends FieldValues> = BaseProps & {
 	control: UseControllerProps<T>['control'];
 	name: Path<T>;
 	rules?: UseControllerProps<T>['rules'];
 };
 
-type UncontrolledProps = {
+type UncontrolledProps = BaseProps & {
 	name: string;
 	value?: Option | null;
 	defaultValue?: Option | null;
 	onChange?: (event: React.SyntheticEvent, value: Option | null) => void;
 };
 
-type CommonProps = {
-	label: string;
-	options: Option[];
-	helperText?: string;
-	error?: boolean;
-	/**
-	 * If true, the component is shown.
-	 */
-	open?: UseAutocompleteProps<Option, false, false, false>['open'];
-	/**
-	 * Callback fired when the popup requests to be opened. Use in controlled mode (see open).
-	 */
-	onOpen?: UseAutocompleteProps<Option, false, false, false>['onOpen'];
-	/**
-	 * Callback fired when the popup requests to be closed. Use in controlled mode (see open).
-	 */
-	onClose?: UseAutocompleteProps<Option, false, false, false>['onClose'];
-	/**
-	 * If true, the component is in a loading state. This shows the loadingText in place of suggestions (only if there are no suggestions to show, for example options are empty).
-	 */
-	loading?: AutocompleteProps<Option, false, false, false, 'div'>['loading'];
-	/**
-	 * Callback fired when the input value changes.
-	 */
-	onInputChange?: UseAutocompleteProps<Option, false, false, false>['onInputChange'];
-};
-
-type ControlledAutocompleteProps<T extends FieldValues> = CommonProps & ControlledProps<T>;
-
-const ControlledAutocomplete = <T extends FieldValues>({
+const AutocompleteBase = ({
 	label,
 	options,
 	helperText,
 	error,
-	name,
-	control,
-	rules,
+	loading,
+	open,
+	onOpen,
+	onClose,
+	onInputChange,
 	...props
-}: ControlledAutocompleteProps<T>) => {
-	return (
-		<FormControl
-			fullWidth
-			error={error}
-		>
-			<Controller
-				name={name}
-				control={control}
-				rules={rules}
-				render={({ field }) => (
-					<MuiAutocomplete
-						{...field}
-						open={props?.open}
-						onOpen={props?.onOpen}
-						onClose={props?.onClose}
-						loading={props?.loading}
-						onInputChange={props?.onInputChange}
-						options={options}
-						getOptionLabel={(option) => option.label}
-						isOptionEqualToValue={(option, value) => option.value === value.value}
-						renderInput={(params) => (
-							<TextField
-								{...params}
-								label={label}
-								error={error}
-								slotProps={{
-									input: {
-										...params.InputProps,
-										endAdornment: (
-											<React.Fragment>
-												{props?.loading ? (
-													<CircularProgress
-														color="inherit"
-														size={20}
-													/>
-												) : null}
-												{params.InputProps.endAdornment}
-											</React.Fragment>
-										),
-									},
-								}}
-							/>
-						)}
-						// called after selecting a new option
-						onChange={(_, value) => {
-							field.onChange(value);
-						}}
-						value={field.value || null}
-					/>
-				)}
-			/>
-			{helperText && <FormHelperText>{helperText}</FormHelperText>}
-		</FormControl>
-	);
-};
-
-type UncontrolledAutocompleteProps = CommonProps & UncontrolledProps;
-
-const UncontrolledAutocomplete = ({
-	label,
-	options,
-	helperText,
-	error,
-	defaultValue = null,
-	value,
-	name,
-	onChange,
-}: UncontrolledAutocompleteProps) => {
+}: BaseProps & { value?: Option | null; onChange?: (event: React.SyntheticEvent, value: Option | null) => void }) => {
 	return (
 		<FormControl
 			fullWidth
 			error={error}
 		>
 			<MuiAutocomplete
+				{...props}
+				open={open}
+				onOpen={onOpen}
+				onClose={onClose}
+				loading={loading}
+				loadingText="Carregando..."
+				onInputChange={onInputChange}
 				options={options}
 				getOptionLabel={(option) => option.label}
 				isOptionEqualToValue={(option, value) => option.value === value.value}
 				renderInput={(params) => (
 					<TextField
 						{...params}
-						name={name}
+						name={props.name}
 						label={label}
 						error={error}
+						slotProps={{
+							input: {
+								...params.InputProps,
+								endAdornment: (
+									<>
+										{loading ? (
+											<CircularProgress
+												color="inherit"
+												size={20}
+											/>
+										) : null}
+										{params.InputProps.endAdornment}
+									</>
+								),
+							},
+						}}
 					/>
 				)}
-				onChange={onChange}
-				value={value}
-				defaultValue={defaultValue}
 			/>
 			{helperText && <FormHelperText>{helperText}</FormHelperText>}
 		</FormControl>
 	);
 };
 
-export default {
-	ControlledAutocomplete,
-	UncontrolledAutocomplete,
-};
+const ControlledAutocomplete = <T extends FieldValues>({ control, name, rules, ...props }: ControlledProps<T>) => (
+	<Controller
+		name={name}
+		control={control}
+		rules={rules}
+		render={({ field }) => (
+			<AutocompleteBase
+				{...props}
+				value={field.value || null}
+				onChange={(_, value) => field.onChange(value)}
+			/>
+		)}
+	/>
+);
+
+const UncontrolledAutocomplete = ({ defaultValue = null, ...props }: UncontrolledProps) => (
+	<AutocompleteBase
+		{...props}
+		defaultValue={defaultValue}
+	/>
+);
+
+export default { ControlledAutocomplete, UncontrolledAutocomplete };
