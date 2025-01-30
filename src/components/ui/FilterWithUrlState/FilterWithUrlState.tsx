@@ -3,13 +3,17 @@ import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 
+import { Button } from '../Button/Button';
+import TextInput from '../Input/TextInput';
+import Select from '../Select/Select';
+
 type FilterFormValues = {
 	search: string;
 	category: string;
 };
 
 const FilterWithUrlState = () => {
-	const { register, handleSubmit, setValue } = useForm<FilterFormValues>({
+	const { register, handleSubmit, setValue, control, reset } = useForm<FilterFormValues>({
 		defaultValues: { search: '', category: '' },
 	});
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -28,29 +32,68 @@ const FilterWithUrlState = () => {
 		setSearchParams(newParams);
 	};
 
+	const handleClearFilters = () => {
+		setSearchParams('');
+		reset();
+	};
+
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<input
-				type="text"
-				placeholder="Search"
-				{...register('search')}
-				className="rounded border p-2"
-			/>
-			<select
-				{...register('category')}
-				className="ml-2 rounded border p-2"
+		<div className="w-full space-y-20">
+			<div className="flex justify-between">
+				<h2 className="text-lg">Filtros: 0</h2>
+				<Button
+					type="button"
+					variant="ghost"
+					size="md"
+					icon="plus"
+				>
+					Salvar Filtros
+				</Button>
+			</div>
+			<form
+				onSubmit={handleSubmit(onSubmit)}
+				className="space-y-20"
 			>
-				<option value="">All Categories</option>
-				<option value="books">Books</option>
-				<option value="electronics">Electronics</option>
-			</select>
-			<button
-				type="submit"
-				className="ml-2 rounded bg-blue-500 p-2 text-white"
-			>
-				Apply Filters
-			</button>
-		</form>
+				<div className="grid grid-cols-2 gap-10">
+					<TextInput.UncontrolledInput
+						{...register('search')}
+						label="Pesquisar"
+						placeholder="Search"
+					/>
+
+					<Select.ControlledSelect
+						control={control}
+						name="category"
+						id="category"
+						label="Category"
+						options={[
+							{ value: '', label: 'All Categories' },
+							{ value: 'books', label: 'Books' },
+							{ value: 'electronics', label: 'Electronics' },
+						]}
+					/>
+				</div>
+				<div className="flex justify-between">
+					<Button
+						type="button"
+						variant="destructive"
+						size="md"
+						icon="trash"
+						onClick={() => handleClearFilters()}
+					>
+						Limpar Filtros
+					</Button>
+					<Button
+						type="submit"
+						variant="primary"
+						size="md"
+						icon="search"
+					>
+						Aplicar Filtros
+					</Button>
+				</div>
+			</form>
+		</div>
 	);
 };
 

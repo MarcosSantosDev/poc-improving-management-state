@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import * as React from 'react';
 
 import { MenuItem, Select, FormControl, InputLabel, FormHelperText } from '@mui/material';
 
@@ -32,7 +32,7 @@ const ControlledSelect = <T extends FieldValues>({
 	// @ts-expect-error reports an error because a link is required between the component and the react-hook-form
 	defaultValue = '',
 }: SelectProps<T>) => {
-	const selectId = useId();
+	const selectId = React.useId();
 
 	return (
 		<Controller
@@ -68,35 +68,38 @@ const ControlledSelect = <T extends FieldValues>({
 	);
 };
 
-const UncontrolledSelect = ({ error, helperText, name, label, options, defaultValue = '' }: BaseSelectProps) => {
-	const selectId = useId();
+const UncontrolledSelect = React.forwardRef<HTMLSelectElement, BaseSelectProps>(
+	({ error, helperText, options, defaultValue = '', label, ...props }, ref) => {
+		const selectId = React.useId();
 
-	return (
-		<FormControl
-			fullWidth
-			error={error}
-		>
-			<InputLabel id={selectId}>{label}</InputLabel>
-			<Select
-				labelId={selectId}
-				label={label}
+		return (
+			<FormControl
+				fullWidth
 				error={error}
-				name={name}
-				defaultValue={defaultValue}
 			>
-				{options.map((option) => (
-					<MenuItem
-						key={option.value}
-						value={option.value}
-					>
-						{option.label}
-					</MenuItem>
-				))}
-			</Select>
-			{helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
-		</FormControl>
-	);
-};
+				<InputLabel id={selectId}>{label}</InputLabel>
+				<Select
+					{...props}
+					labelId={selectId}
+					label={label}
+					error={error}
+					defaultValue={defaultValue}
+					ref={ref}
+				>
+					{options.map((option) => (
+						<MenuItem
+							key={option.value}
+							value={option.value}
+						>
+							{option.label}
+						</MenuItem>
+					))}
+				</Select>
+				{helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
+			</FormControl>
+		);
+	}
+);
 
 export default {
 	ControlledSelect,
