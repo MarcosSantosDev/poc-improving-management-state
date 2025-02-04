@@ -13,7 +13,8 @@
 		"test:watch": "vitest watch",
 		"coverage": "vitest run --coverage",
 		"lint": "eslint ./src/**/*.{ts,tsx}",
-		"format": "prettier --write ./src/**/*.{ts,tsx}"
+		"format": "prettier --write ./src/**/*.{ts,tsx}",
+		"start-server": "json-server --c --watch ./database/collection.json"
 	},
 	"license": "MIT",
 	"dependencies": {
