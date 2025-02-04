@@ -2,12 +2,14 @@ import { useForm } from 'react-hook-form';
 
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
 import TextInput from '@/components/ui/Input/TextInput';
+import Radio from '@/components/ui/Radio/Radio';
 import Select from '@/components/ui/Select/Select';
 
 type FormValues = {
 	firstName: string;
 	country: string;
 	city: string;
+	gender: string;
 };
 
 export const FormControlled = () => {
@@ -23,6 +25,15 @@ export const FormControlled = () => {
 			onSubmit={handleSubmit(onSubmit)}
 			className="space-y-20"
 		>
+			<Radio.ControlledRadio
+				control={control}
+				label="Gênero"
+				name="gender"
+				options={[
+					{ label: 'Masculino', value: 'male' },
+					{ label: 'Feminino', value: 'female' },
+				]}
+			/>
 			<TextInput.ControlledInput
 				control={control}
 				label="Nome"

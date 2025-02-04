@@ -1,10 +1,12 @@
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
 import TextInput from '@/components/ui/Input/TextInput';
+import Radio from '@/components/ui/Radio/Radio';
 import Select from '@/components/ui/Select/Select';
 const initialForm = {
 	firstName: '',
 	country: '',
 	city: '',
+	gender: '',
 };
 
 export const FormUncontrolled = () => {
@@ -22,6 +24,14 @@ export const FormUncontrolled = () => {
 			onSubmit={handleSubmit}
 			className="space-y-20"
 		>
+			<Radio.UncontrolledRadio
+				label="Gênero"
+				name="gender"
+				options={[
+					{ label: 'Masculino', value: 'male' },
+					{ label: 'Feminino', value: 'female' },
+				]}
+			/>
 			<TextInput.UncontrolledInput
 				label="Nome"
 				name="firstName"
