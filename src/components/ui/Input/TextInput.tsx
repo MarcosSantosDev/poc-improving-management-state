@@ -55,10 +55,11 @@ const ControlledInput = <T extends FieldValues>({
 				render={({ field }) => (
 					<TextField
 						{...field}
+						inputRef={field.ref}
 						type="text"
 						error={error}
 						label={label}
-						inputRef={field.ref}
+						value={field.value || ''}
 					/>
 				)}
 			/>
