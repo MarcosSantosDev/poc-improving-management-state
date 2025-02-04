@@ -10,6 +10,7 @@ const Home = React.lazy(() => import('@/pages/home'));
 const Components = React.lazy(() => import('@/pages/components'));
 const Forms = React.lazy(() => import('@/pages/forms'));
 const Filters = React.lazy(() => import('@/pages/filters'));
+const MultiStepForm = React.lazy(() => import('@/pages/multi-step-form'));
 
 export const routes: RouteObject[] = [
 	{
@@ -36,6 +37,11 @@ export const routes: RouteObject[] = [
 				id: 'FILTERS',
 				path: routePaths.FILTERS,
 				element: <Filters />,
+			},
+			{
+				id: 'MULTI_STEP_FORM',
+				path: routePaths.MULTI_STEP_FORM,
+				element: <MultiStepForm />,
 			},
 		],
 	},

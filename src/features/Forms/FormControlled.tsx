@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
 
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
+import TextInput from '@/components/ui/Input/TextInput';
 import Select from '@/components/ui/Select/Select';
 
 type FormValues = {
+	firstName: string;
 	country: string;
 	city: string;
 };
@@ -21,6 +23,11 @@ export const FormControlled = () => {
 			onSubmit={handleSubmit(onSubmit)}
 			className="space-y-20"
 		>
+			<TextInput.ControlledInput
+				control={control}
+				label="Nome"
+				name="firstName"
+			/>
 			<Select.ControlledSelect
 				control={control}
 				id="country"

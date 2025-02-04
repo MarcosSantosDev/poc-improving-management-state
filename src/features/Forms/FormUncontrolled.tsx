@@ -1,6 +1,8 @@
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
+import TextInput from '@/components/ui/Input/TextInput';
 import Select from '@/components/ui/Select/Select';
 const initialForm = {
+	firstName: '',
 	country: '',
 	city: '',
 };
@@ -20,6 +22,10 @@ export const FormUncontrolled = () => {
 			onSubmit={handleSubmit}
 			className="space-y-20"
 		>
+			<TextInput.UncontrolledInput
+				label="Nome"
+				name="firstName"
+			/>
 			<Select.UncontrolledSelect
 				id="country"
 				name="country"

@@ -1,5 +1,5 @@
 import ExampleWrapper from '@/components/app/ExampleWrapper';
-import FilterWithUrlState from '@/components/ui/FilterWithUrlState/FilterWithUrlState';
+import FilterWithUrlState from '@/features/Filters/FilterWithUrlState';
 
 const Components = () => {
 	return (

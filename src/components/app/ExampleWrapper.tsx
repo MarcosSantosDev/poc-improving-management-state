@@ -19,6 +19,12 @@ const ExampleWrapper = ({ children }: React.PropsWithChildren) => {
 					Forms - Comportamento dos Componentes
 				</Link>
 				<Link
+					to="/multi-step-form"
+					className="rounded-full border px-6 py-2 text-md font-medium text-blue-400"
+				>
+					Forms - Multi Step
+				</Link>
+				<Link
 					to="/components"
 					className="rounded-full border px-6 py-2 text-md font-medium text-blue-400"
 				>
