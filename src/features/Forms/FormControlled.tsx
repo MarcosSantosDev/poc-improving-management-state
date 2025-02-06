@@ -5,6 +5,7 @@ import Checkbox from '@/components/ui/Checkbox/Checkbox';
 import TextInput from '@/components/ui/Input/TextInput';
 import Radio from '@/components/ui/Radio/Radio';
 import Select from '@/components/ui/Select/Select';
+import Textarea from '@/components/ui/Textarea/Textarea';
 
 type FormValues = {
 	firstName: string;
@@ -12,6 +13,7 @@ type FormValues = {
 	city: string;
 	gender: string;
 	terms: boolean;
+	comments: string;
 };
 
 export const FormControlled = () => {
@@ -27,6 +29,12 @@ export const FormControlled = () => {
 			onSubmit={handleSubmit(onSubmit)}
 			className="grid grid-cols-1 gap-20"
 		>
+			<Textarea.ControlledTextarea
+				name="comments"
+				label="Comentários"
+				control={control}
+				rows={4}
+			/>
 			<Checkbox.ControlledCheckbox
 				name="terms"
 				label="Aceito os termos"
