@@ -4,21 +4,6 @@ import { TextField, FormControl, FormHelperText } from '@mui/material';
 
 import { Controller, FieldError, FieldErrorsImpl, FieldValues, Merge, Path, UseControllerProps } from 'react-hook-form';
 
-type ControlledProps<T extends FieldValues> = {
-	control: UseControllerProps<T>['control'];
-	name: Path<T>;
-	rules?: UseControllerProps<T>['rules'];
-	helperText?: string | FieldError | Merge<FieldError, FieldErrorsImpl<T>>;
-};
-
-type UncontrolledProps = {
-	value?: string;
-	defaultValue?: string;
-	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	helperText?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
-};
-
 // Props comuns para ambos os componentes
 type CommonProps = {
 	name: string;
@@ -34,6 +19,13 @@ type CommonProps = {
 	onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 };
 
+type ControlledProps<T extends FieldValues> = {
+	control: UseControllerProps<T>['control'];
+	name: Path<T>;
+	rules?: UseControllerProps<T>['rules'];
+	helperText?: string | FieldError | Merge<FieldError, FieldErrorsImpl<T>>;
+} & CommonProps;
+
 const ControlledInput = <T extends FieldValues>({
 	control,
 	rules,
@@ -42,7 +34,7 @@ const ControlledInput = <T extends FieldValues>({
 	fullWidth = true,
 	label,
 	...props
-}: ControlledProps<T> & CommonProps) => {
+}: ControlledProps<T>) => {
 	return (
 		<FormControl
 			fullWidth={fullWidth}
@@ -68,7 +60,15 @@ const ControlledInput = <T extends FieldValues>({
 	);
 };
 
-const UncontrolledInput = React.forwardRef<HTMLInputElement, UncontrolledProps & CommonProps>(
+type UncontrolledProps = {
+	value?: string;
+	defaultValue?: string;
+	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	helperText?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
+} & CommonProps;
+
+const UncontrolledInput = React.forwardRef<HTMLInputElement, UncontrolledProps>(
 	({ helperText, error, fullWidth = true, ...props }, ref) => {
 		return (
 			<FormControl
