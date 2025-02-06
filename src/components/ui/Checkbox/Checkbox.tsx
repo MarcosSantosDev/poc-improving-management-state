@@ -7,7 +7,6 @@ type BaseProps = {
 	disabled?: boolean;
 };
 
-// Componente para Checkbox Controlado (Controlled)
 type ControlledCheckboxProps<T extends FieldValues> = {
 	control: UseControllerProps<T>['control'];
 	name: Path<T>;
