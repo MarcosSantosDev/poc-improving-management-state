@@ -1,12 +1,15 @@
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
+import Checkbox from '@/components/ui/Checkbox/Checkbox';
 import TextInput from '@/components/ui/Input/TextInput';
 import Radio from '@/components/ui/Radio/Radio';
 import Select from '@/components/ui/Select/Select';
+
 const initialForm = {
 	firstName: '',
 	country: '',
 	city: '',
 	gender: '',
+	terms: false,
 };
 
 export const FormUncontrolled = () => {
@@ -22,8 +25,12 @@ export const FormUncontrolled = () => {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="space-y-20"
+			className="grid grid-cols-1 gap-20"
 		>
+			<Checkbox.UncontrolledCheckbox
+				name="terms"
+				label="Aceito os termos"
+			/>
 			<Radio.UncontrolledRadio
 				label="Gênero"
 				name="gender"

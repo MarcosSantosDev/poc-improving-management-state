@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
+import Checkbox from '@/components/ui/Checkbox/Checkbox';
 import TextInput from '@/components/ui/Input/TextInput';
 import Radio from '@/components/ui/Radio/Radio';
 import Select from '@/components/ui/Select/Select';
@@ -10,6 +11,7 @@ type FormValues = {
 	country: string;
 	city: string;
 	gender: string;
+	terms: boolean;
 };
 
 export const FormControlled = () => {
@@ -23,8 +25,13 @@ export const FormControlled = () => {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="space-y-20"
+			className="grid grid-cols-1 gap-20"
 		>
+			<Checkbox.ControlledCheckbox
+				name="terms"
+				label="Aceito os termos"
+				control={control}
+			/>
 			<Radio.ControlledRadio
 				control={control}
 				label="Gênero"
