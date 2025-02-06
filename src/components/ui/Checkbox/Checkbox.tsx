@@ -41,7 +41,13 @@ type UncontrolledCheckboxProps = BaseProps & {
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export function UncontrolledCheckbox({ name, label, defaultChecked, onChange, disabled }: UncontrolledCheckboxProps) {
+export const UncontrolledCheckbox = ({
+	name,
+	label,
+	defaultChecked,
+	onChange,
+	disabled,
+}: UncontrolledCheckboxProps) => {
 	return (
 		<FormControlLabel
 			control={
@@ -55,7 +61,7 @@ export function UncontrolledCheckbox({ name, label, defaultChecked, onChange, di
 			label={label}
 		/>
 	);
-}
+};
 
 export default {
 	ControlledCheckbox,
