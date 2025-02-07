@@ -11,7 +11,7 @@ import Textarea from '@/components/ui/Textarea/Textarea';
 import { FormValues } from './@types';
 
 export const FormControlled = () => {
-	const { control, handleSubmit } = useForm<FormValues>();
+	const { control, register, handleSubmit } = useForm<FormValues>();
 
 	const onSubmit = (data: FormValues) => {
 		// eslint-disable-next-line no-console
@@ -48,20 +48,18 @@ export const FormControlled = () => {
 					{ label: 'Feminino', value: 'female' },
 				]}
 			/>
-			<TextInput.ControlledInput
-				control={control}
+			<TextInput.UncontrolledInput
 				label="Nome"
-				name="firstName"
+				{...register('firstName')}
 			/>
-			<Select.ControlledSelect
-				control={control}
+			<Select.UncontrolledSelect
 				id="country"
-				name="country"
 				label="País"
 				options={[
 					{ value: 'us', label: 'United States' },
 					{ value: 'ca', label: 'Canada' },
 				]}
+				{...register('country')}
 			/>
 			<Autocomplete.ControlledAutocomplete
 				control={control}
