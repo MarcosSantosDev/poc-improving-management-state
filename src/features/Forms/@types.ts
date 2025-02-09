@@ -6,4 +6,6 @@ export type FormValues = {
 	terms: boolean;
 	comments: string;
 	date: string;
+	notifications: boolean;
+	notificationsAlert: number;
 };

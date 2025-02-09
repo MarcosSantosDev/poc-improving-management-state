@@ -1,9 +1,14 @@
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { IconButton } from '@mui/material';
+
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
+import Badge from '@/components/ui/Badge/Badge';
 import Checkbox from '@/components/ui/Checkbox/Checkbox';
 import DateField from '@/components/ui/DateField/DateField';
 import TextInput from '@/components/ui/Input/TextInput';
 import Radio from '@/components/ui/Radio/Radio';
 import Select from '@/components/ui/Select/Select';
+import Switch from '@/components/ui/Switch/Switch';
 import Textarea from '@/components/ui/Textarea/Textarea';
 
 import { FormValues } from './@types';
@@ -16,6 +21,8 @@ const initialForm: FormValues = {
 	terms: false,
 	comments: '',
 	date: '',
+	notifications: false,
+	notificationsAlert: 0,
 };
 
 export const FormUncontrolled = () => {
@@ -33,6 +40,19 @@ export const FormUncontrolled = () => {
 			onSubmit={handleSubmit}
 			className="grid grid-cols-1 gap-20"
 		>
+			<Badge
+				name="notificationsAlert"
+				defaultValue={2}
+				showZero
+			>
+				<IconButton>
+					<NotificationsIcon />
+				</IconButton>
+			</Badge>
+			<Switch.UncontrolledSwitch
+				name="notifications"
+				label="Receber notificações"
+			/>
 			<DateField.UncontrolledDateField
 				label="Data"
 				name="date"

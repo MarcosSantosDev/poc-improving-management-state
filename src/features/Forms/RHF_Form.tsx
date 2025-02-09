@@ -1,16 +1,21 @@
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { IconButton } from '@mui/material';
+
 import { useForm } from 'react-hook-form';
 
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
+import Badge from '@/components/ui/Badge/Badge';
 import Checkbox from '@/components/ui/Checkbox/Checkbox';
 import DateField from '@/components/ui/DateField/DateField';
 import TextInput from '@/components/ui/Input/TextInput';
 import Radio from '@/components/ui/Radio/Radio';
 import Select from '@/components/ui/Select/Select';
+import Switch from '@/components/ui/Switch/Switch';
 import Textarea from '@/components/ui/Textarea/Textarea';
 
 import { FormValues } from './@types';
 
-export const FormControlled = () => {
+export const RHF_Form = () => {
 	const { control, register, handleSubmit } = useForm<FormValues>();
 
 	const onSubmit = (data: FormValues) => {
@@ -23,6 +28,20 @@ export const FormControlled = () => {
 			onSubmit={handleSubmit(onSubmit)}
 			className="grid grid-cols-1 gap-20"
 		>
+			<Badge
+				name="notificationsAlert"
+				defaultValue={2}
+				showZero
+			>
+				<IconButton>
+					<NotificationsIcon />
+				</IconButton>
+			</Badge>
+			<Switch.ControlledSwitch
+				name="notifications"
+				label="Receber notificações"
+				control={control}
+			/>
 			<DateField.ControlledDateField
 				control={control}
 				label="Data"
