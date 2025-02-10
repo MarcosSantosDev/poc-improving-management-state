@@ -8,6 +8,7 @@ import Badge from '@/components/ui/Badge/Badge';
 import Checkbox from '@/components/ui/Checkbox/Checkbox';
 import DateField from '@/components/ui/DateField/DateField';
 import TextInput from '@/components/ui/Input/TextInput';
+import MultiSelect from '@/components/ui/MultiSelect/MultiSelect';
 import Radio from '@/components/ui/Radio/Radio';
 import Select from '@/components/ui/Select/Select';
 import Switch from '@/components/ui/Switch/Switch';
@@ -40,6 +41,16 @@ export const RHF_Form = () => {
 			<Switch.ControlledSwitch
 				name="notifications"
 				label="Receber notificações"
+				control={control}
+			/>
+			<MultiSelect.ControlledMultiSelect
+				name="categories"
+				label="Categorias"
+				options={[
+					{ label: 'Tecnologia', value: 'tech' },
+					{ label: 'Negócios', value: 'business' },
+					{ label: 'Saúde', value: 'health' },
+				]}
 				control={control}
 			/>
 			<DateField.ControlledDateField

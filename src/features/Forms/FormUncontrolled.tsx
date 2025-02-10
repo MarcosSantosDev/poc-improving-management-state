@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { IconButton } from '@mui/material';
 
@@ -6,6 +8,7 @@ import Badge from '@/components/ui/Badge/Badge';
 import Checkbox from '@/components/ui/Checkbox/Checkbox';
 import DateField from '@/components/ui/DateField/DateField';
 import TextInput from '@/components/ui/Input/TextInput';
+import MultiSelect from '@/components/ui/MultiSelect/MultiSelect';
 import Radio from '@/components/ui/Radio/Radio';
 import Select from '@/components/ui/Select/Select';
 import Switch from '@/components/ui/Switch/Switch';
@@ -23,6 +26,7 @@ const initialForm: FormValues = {
 	date: '',
 	notifications: false,
 	notificationsAlert: 0,
+	categories: [],
 };
 
 export const FormUncontrolled = () => {
@@ -52,6 +56,15 @@ export const FormUncontrolled = () => {
 			<Switch.UncontrolledSwitch
 				name="notifications"
 				label="Receber notificações"
+			/>
+			<MultiSelect.UncontrolledMultiSelect
+				name="categories"
+				label="Categorias"
+				options={[
+					{ label: 'Tecnologia', value: 'tech' },
+					{ label: 'Negócios', value: 'business' },
+					{ label: 'Saúde', value: 'health' },
+				]}
 			/>
 			<DateField.UncontrolledDateField
 				label="Data"

@@ -8,4 +8,5 @@ export type FormValues = {
 	date: string;
 	notifications: boolean;
 	notificationsAlert: number;
+	categories: string[];
 };
