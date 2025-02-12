@@ -1,13 +1,10 @@
 import * as React from 'react';
 
-import { Slot } from '@radix-ui/react-slot';
+import { Button as MUIButton, type ButtonProps as MUIButtonProps } from '@mui/material';
 
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/utils/twUtils';
-
-import { Icon } from '../Icon/Icon';
-import type { IconNames } from '../Icon/Icon';
 
 const buttonVariants = cva(
 	'inline-flex items-center justify-center gap-8 whitespace-nowrap rounded-sm text-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50',
@@ -33,43 +30,22 @@ const buttonVariants = cva(
 	}
 );
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-	VariantProps<typeof buttonVariants> & {
-		asChild?: boolean;
-		icon?: IconNames;
-	};
+export type ButtonProps = Omit<MUIButtonProps, 'variant'> & VariantProps<typeof buttonVariants>;
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, variant, size, asChild = false, children, icon, ...props }, ref) => {
-		if (asChild) {
-			return (
-				<Slot
-					className={cn(buttonVariants({ variant, size, className }))}
-					ref={ref}
-					{...props}
-				>
-					{children}
-				</Slot>
-			);
-		}
-
+	({ variant = 'primary', size, className, children, ...props }, ref) => {
 		return (
-			<button
-				className={cn(buttonVariants({ variant, size, className }))}
-				ref={ref}
+			<MUIButton
 				{...props}
+				ref={ref}
+				className={cn(buttonVariants({ variant, size, className }))}
 			>
-				{icon && (
-					<Icon
-						name={icon}
-						size="sm"
-					/>
-				)}
-				<span>{children}</span>
-			</button>
+				{children}
+			</MUIButton>
 		);
 	}
 );
+
 Button.displayName = 'Button';
 
 export { Button, buttonVariants };

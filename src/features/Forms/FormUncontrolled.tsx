@@ -5,7 +5,9 @@ import { IconButton } from '@mui/material';
 
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
 import Badge from '@/components/ui/Badge/Badge';
+import { Button } from '@/components/ui/Button/Button';
 import Checkbox from '@/components/ui/Checkbox/Checkbox';
+import Chip from '@/components/ui/Chip/Chip';
 import DateField from '@/components/ui/DateField/DateField';
 import TextInput from '@/components/ui/Input/TextInput';
 import MultiSelect from '@/components/ui/MultiSelect/MultiSelect';
@@ -27,6 +29,7 @@ const initialForm: FormValues = {
 	notifications: false,
 	notificationsAlert: 0,
 	categories: [],
+	chip1: false,
 };
 
 export const FormUncontrolled = () => {
@@ -56,6 +59,11 @@ export const FormUncontrolled = () => {
 			<Switch.UncontrolledSwitch
 				name="notifications"
 				label="Receber notificações"
+			/>
+			<Chip.UncontrolledChip
+				label="Clique Aqui"
+				defaultSelected={false}
+				onChange={(selected) => console.log('Selecionado:', selected)}
 			/>
 			<MultiSelect.UncontrolledMultiSelect
 				name="categories"
@@ -108,12 +116,7 @@ export const FormUncontrolled = () => {
 					{ value: 'option-02', label: 'Option 02' },
 				]}
 			/>
-			<button
-				className="border-1 w-full rounded-sm border border-black p-10"
-				type="submit"
-			>
-				Submit
-			</button>
+			<Button type="submit">Submit</Button>
 		</form>
 	);
 };

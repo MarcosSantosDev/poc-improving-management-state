@@ -9,4 +9,5 @@ export type FormValues = {
 	notifications: boolean;
 	notificationsAlert: number;
 	categories: string[];
+	chip1: boolean;
 };

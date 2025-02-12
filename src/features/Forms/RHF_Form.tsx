@@ -5,7 +5,9 @@ import { useForm } from 'react-hook-form';
 
 import Autocomplete from '@/components/ui/Autocomplete/Autocomplete';
 import Badge from '@/components/ui/Badge/Badge';
+import { Button } from '@/components/ui/Button/Button';
 import Checkbox from '@/components/ui/Checkbox/Checkbox';
+import Chip from '@/components/ui/Chip/Chip';
 import DateField from '@/components/ui/DateField/DateField';
 import TextInput from '@/components/ui/Input/TextInput';
 import MultiSelect from '@/components/ui/MultiSelect/MultiSelect';
@@ -41,6 +43,11 @@ export const RHF_Form = () => {
 			<Switch.ControlledSwitch
 				name="notifications"
 				label="Receber notificações"
+				control={control}
+			/>
+			<Chip.ControlledChip
+				name="chip1"
+				label="Clique Aqui"
 				control={control}
 			/>
 			<MultiSelect.ControlledMultiSelect
@@ -104,12 +111,7 @@ export const RHF_Form = () => {
 					{ value: 'option-02', label: 'Option 02' },
 				]}
 			/>
-			<button
-				className="border-1 w-full rounded-sm border border-black p-10"
-				type="submit"
-			>
-				Submit
-			</button>
+			<Button type="submit">Submit</Button>
 		</form>
 	);
 };
