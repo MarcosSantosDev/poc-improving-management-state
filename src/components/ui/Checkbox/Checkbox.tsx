@@ -1,8 +1,17 @@
-import { Checkbox as MUICheckbox, FormControlLabel } from '@mui/material';
+import * as React from 'react';
+
+import { Checkbox as MUICheckbox, FormControlLabel, CheckboxProps as MUICheckboxProps } from '@mui/material';
 
 import { Controller, FieldValues, Path, UseControllerProps } from 'react-hook-form';
 
-type BaseProps = {
+export const CheckboxBase = React.forwardRef<HTMLButtonElement, MUICheckboxProps>(({ ...props }, ref) => (
+	<MUICheckbox
+		{...props}
+		ref={ref}
+	/>
+));
+
+type BaseProps = MUICheckboxProps & {
 	label?: string;
 	disabled?: boolean;
 };
@@ -20,7 +29,7 @@ const ControlledCheckbox = <T extends FieldValues>({ name, label, control, disab
 			render={({ field }) => (
 				<FormControlLabel
 					control={
-						<MUICheckbox
+						<CheckboxBase
 							{...field}
 							checked={field.value || false}
 							onChange={(event) => field.onChange(event.target.checked)}
@@ -35,22 +44,16 @@ const ControlledCheckbox = <T extends FieldValues>({ name, label, control, disab
 };
 
 type UncontrolledCheckboxProps = BaseProps & {
-	name: string;
+	name?: string;
 	defaultChecked?: boolean;
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const UncontrolledCheckbox = ({
-	name,
-	label,
-	defaultChecked,
-	onChange,
-	disabled,
-}: UncontrolledCheckboxProps) => {
+const UncontrolledCheckbox = ({ name, label, defaultChecked, onChange, disabled }: UncontrolledCheckboxProps) => {
 	return (
 		<FormControlLabel
 			control={
-				<MUICheckbox
+				<CheckboxBase
 					name={name}
 					defaultChecked={defaultChecked}
 					onChange={onChange}

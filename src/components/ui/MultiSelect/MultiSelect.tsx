@@ -1,13 +1,15 @@
 import * as React from 'react';
 
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { FormControl, InputLabel, ListItemText, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 import { Controller, FieldValues, Path, PathValue, UseControllerProps } from 'react-hook-form';
+
+import { CheckboxBase } from '../Checkbox/Checkbox';
 
 type MultiSelectProps = {
 	name: string;
 	label: string;
-	options: { label: string; value: string | number }[];
+	options: { label: string; value: string }[];
 	required?: boolean;
 	disabled?: boolean;
 };
@@ -50,7 +52,8 @@ const ControlledMultiSelect = <T extends FieldValues>({
 							key={option.value}
 							value={option.value}
 						>
-							{option.label}
+							<CheckboxBase checked={(field.value ?? []).includes(option.value as never)} />
+							<ListItemText primary={option.label} />
 						</MenuItem>
 					))}
 				</Select>
@@ -101,7 +104,8 @@ const UncontrolledMultiSelect = ({
 						key={option.value}
 						value={option.value}
 					>
-						{option.label}
+						<CheckboxBase checked={selectedValues.includes(option.value)} />
+						<ListItemText primary={option.label} />
 					</MenuItem>
 				))}
 			</Select>
